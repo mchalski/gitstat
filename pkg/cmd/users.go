@@ -4,6 +4,9 @@ import (
 	"errors"
 
 	"github.com/spf13/cobra"
+
+	"github.com/mchalski/gitstat/pkg/actions"
+	"github.com/mchalski/gitstat/pkg/data"
 )
 
 const (
@@ -39,6 +42,20 @@ var usersCmd = &cobra.Command{
 			cobra.CheckErr(errors.New("need a valid '--actors' path"))
 		}
 
+		streamEvts, err := data.NewCsvStream(events)
+		cobra.CheckErr(err)
+
+		streamCommits, err := data.NewCsvStream(commits)
+		cobra.CheckErr(err)
+
+		streamActors, err := data.NewCsvStream(actors)
+		cobra.CheckErr(err)
+
+		action := actions.NewTopUsers(streamEvts,
+			streamCommits,
+			streamActors)
+
+		action.Run()
 	},
 }
 

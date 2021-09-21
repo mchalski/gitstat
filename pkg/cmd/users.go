@@ -1,12 +1,13 @@
 package cmd
 
 import (
-	"errors"
+	_ "errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 
-	"github.com/mchalski/gitstat/pkg/actions"
-	"github.com/mchalski/gitstat/pkg/data"
+	_ "github.com/mchalski/gitstat/pkg/actions"
+	_ "github.com/mchalski/gitstat/pkg/data"
 )
 
 const (
@@ -18,44 +19,48 @@ var usersCmd = &cobra.Command{
 	Short:   "List top 10 users, by PRs created and commits pushed.",
 	Example: "gitstat top-users",
 	Run: func(c *cobra.Command, args []string) {
-		// parse --events
-		events, err := c.Flags().GetString(argFileEvents)
-		cobra.CheckErr(err)
+		fmt.Println("unimplemented - clock ran out :)")
 
-		if events == "" {
-			cobra.CheckErr(errors.New("need a valid '--events' path"))
-		}
+		/*
+			// parse --events
+			events, err := c.Flags().GetString(argFileEvents)
+			cobra.CheckErr(err)
 
-		// parse --commits
-		commits, err := c.Flags().GetString(argFileCommits)
-		cobra.CheckErr(err)
+			if events == "" {
+				cobra.CheckErr(errors.New("need a valid '--events' path"))
+			}
 
-		if commits == "" {
-			cobra.CheckErr(errors.New("need a valid '--commits' path"))
-		}
+			// parse --commits
+			commits, err := c.Flags().GetString(argFileCommits)
+			cobra.CheckErr(err)
 
-		// parse --actors
-		actors, err := c.Flags().GetString(argFileActors)
-		cobra.CheckErr(err)
+			if commits == "" {
+				cobra.CheckErr(errors.New("need a valid '--commits' path"))
+			}
 
-		if actors == "" {
-			cobra.CheckErr(errors.New("need a valid '--actors' path"))
-		}
+			// parse --actors
+			actors, err := c.Flags().GetString(argFileActors)
+			cobra.CheckErr(err)
 
-		streamEvts, err := data.NewCsvStream(events)
-		cobra.CheckErr(err)
+			if actors == "" {
+				cobra.CheckErr(errors.New("need a valid '--actors' path"))
+			}
 
-		streamCommits, err := data.NewCsvStream(commits)
-		cobra.CheckErr(err)
+			streamEvts, err := data.NewCsvStream(events)
+			cobra.CheckErr(err)
 
-		streamActors, err := data.NewCsvStream(actors)
-		cobra.CheckErr(err)
+			streamCommits, err := data.NewCsvStream(commits)
+			cobra.CheckErr(err)
 
-		action := actions.NewTopUsers(streamEvts,
-			streamCommits,
-			streamActors)
+			streamActors, err := data.NewCsvStream(actors)
+			cobra.CheckErr(err)
 
-		action.Run()
+			action := actions.NewTopUsers(streamEvts,
+				streamCommits,
+				streamActors)
+
+			action.Run()
+		*/
 	},
 }
 
